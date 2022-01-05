@@ -1,0 +1,31 @@
+g = [['.'] * 3 for h in range(3)]
+o = [print(*i) for i in g]
+print("Вы можете использовать только символы '0' и 'X', по правилам занятые клетки занять заново уже нельзя")
+print('Нумерация строк начинается с 1, нумерация столбцов начинается с 1')
+def name(x):
+    z = None
+    total2, total3 = 0, 0
+    for m in range(3):
+        total1 = 0
+        for j in range(3):
+            if g[j][m] == x: total1 += 1
+            if j == m and g[j][m] == x: total2 += 1
+            if j + m + 1 == 3 and g[j][m] == x: total3 += 1
+        if total1 == 3:
+            z = True
+        f = {'0':'второй','X':'первый'}
+        if z == True or g[m].count(x) == 3 or total2 == 3 or total3 == 3:
+            print(f'Игра закончена. Победил {f[x].upper()} игрок')
+            return 1
+for i in range(9):
+    if i % 2 == 0:
+        y = input("Ход делает ПЕРВЫЙ игрок. Вы ходите 'КРЕСТИКАМИ': Введите координаты точки(номер строки,номер столбца), куда вы хотите поставить крестик в виде X;Y")
+        strin,stolb = int(y[0]),int(y[2])
+        g[strin - 1][stolb - 1] = 'X'
+    else:
+        y = input("Ход делает ВТОРОЙ игрок. Вы ходите 'НОЛИКАМИ': Введите координаты точки(номер строки,номер столбца), куда вы хотите поставить крестик в виде X;Y")
+        strin, stolb = int(y[0]), int(y[2])
+        g[strin - 1][stolb - 1] = '0'
+    o = [print(*i) for i in g]
+    if name('0') == 1:break
+    if name('X') == 1:break
