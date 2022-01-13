@@ -16,15 +16,18 @@ def name(x):
         f = {'0':'второй','X':'первый'}
         if z == True or g[m].count(x) == 3 or total2 == 3 or total3 == 3:
             print(f'Игра закончена. Победил {f[x].upper()} игрок')
-            return 1
+            return True
 def count(z,w):
     y = input(
         f"Ход делает ПЕРВЫЙ игрок. Вы ходите {w}: Введите через двоеточие координаты точки(номер строки,номер столбца), куда вы хотите поставить крестик в виде 'X;Y'")
     strin, stolb,iu = int(y[0]), int(y[2]), y[1]
     if 0 < strin < 4 and 0 < stolb < 4 and iu ==';'  and len(y) == 3:
-        g[strin - 1][stolb - 1] = z
+        if g[strin - 1][stolb - 1] == '.':g[strin - 1][stolb - 1] = z
+        else:
+            print('КЛЕТКА УЖЕ ЗАНЯТА,ПОПРОБУЙТЕ ЕЩЁ РАЗ!!!')
+            count(z,w)
     else:
-        print('Вы ввели неравильные координаты,попробуйте ещё раз!'.upper())
+        print('Вы ввели неравильные координаты,попробуйте ещё раз!!!'.upper())
         count(z,w)
 for i in range(9):
     if i % 2 == 0:
@@ -32,5 +35,5 @@ for i in range(9):
     else:
         count('0','НОЛИКАМИ')
     o = [print(*i) for i in g]
-    if name('0') == 1:break
-    if name('X') == 1:break
+    if name('0'):break
+    if name('X'):break
